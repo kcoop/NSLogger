@@ -2168,6 +2168,11 @@ static void LoggerMessageAddTimestampAndThreadID(CFMutableDataRef encoder)
 	{
 		NSThread *thread = [NSThread currentThread];
 		NSString *name = [thread name];
+      
+        if (![name length] && [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+            name = [[NSString alloc] initWithFormat:@"%s", dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL)];
+        }
+
 		if (![name length])
 		{
 			// use the thread dictionary to store and retrieve the computed thread name
