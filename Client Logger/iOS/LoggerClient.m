@@ -2623,6 +2623,8 @@ static void LogMessageTo_internal(Logger *logger,
                 LoggerMessageAddString(encoder, (CFStringRef)domain, PART_KEY_TAG);
             if (level)
                 LoggerMessageAddInt32(encoder, level, PART_KEY_LEVEL);
+            else
+                LogErrorBreak();
             if (filename != NULL)
                 LoggerMessageAddCString(encoder, filename, PART_KEY_FILENAME);
             if (lineNumber)
@@ -2646,6 +2648,11 @@ static void LogMessageTo_internal(Logger *logger,
             LOGGERDBG2(CFSTR("-> failed creating encoder"));
         }
     }
+}
+
+// No op function to break on errors for debugging.
+static void LogErrorBreak()
+{
 }
 
 static void LogImageTo_internal(Logger *logger,
