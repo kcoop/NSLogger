@@ -2600,6 +2600,11 @@ static void LogMessageRawTo_internal(Logger *logger,
     }
 }
 
+// No op function to break on errors for debugging.
+static void LogErrorBreak()
+{
+}
+
 static void LogMessageTo_internal(Logger *logger,
 								  const char *filename,
 								  int lineNumber,
@@ -2648,11 +2653,6 @@ static void LogMessageTo_internal(Logger *logger,
             LOGGERDBG2(CFSTR("-> failed creating encoder"));
         }
     }
-}
-
-// No op function to break on errors for debugging.
-static void LogErrorBreak()
-{
 }
 
 static void LogImageTo_internal(Logger *logger,
